@@ -1,0 +1,90 @@
+/* Curiosum — céu noturno, um meridiano, um planeta. Sem fontes externas, sem scripts. */
+:root {
+  --ceu: #0a0d1c;
+  --ceu-2: #10152b;
+  --tinta: #e9e6dc;
+  --tinta-fraca: #9aa0b8;
+  --linha: #2a3152;
+  --planeta: #e8b43a;
+  --display: "Yu Mincho", "Hiragino Mincho ProN", "Songti SC", Georgia, "Times New Roman", serif;
+  --corpo: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: Consolas, "SF Mono", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--ceu); }
+body {
+  margin: 0;
+  background: radial-gradient(120% 80% at 85% 0%, var(--ceu-2), var(--ceu) 60%);
+  color: var(--tinta);
+  font-family: var(--corpo);
+  font-size: 17px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+::selection { background: var(--planeta); color: var(--ceu); }
+
+/* o meridiano: única linha da página, com marcas de grau */
+.meridiano {
+  position: fixed; top: 0; bottom: 0; left: clamp(20px, 7vw, 96px);
+  width: 1px; background: var(--linha);
+}
+.meridiano::before {
+  content: ""; position: absolute; inset: 0; left: -5px; width: 11px;
+  background: repeating-linear-gradient(to bottom, var(--linha) 0 1px, transparent 1px 48px);
+}
+
+main {
+  max-width: 34rem;
+  margin-left: clamp(52px, 13vw, 190px);
+  margin-right: 20px;
+  padding-block: clamp(56px, 14vh, 150px) 96px;
+}
+
+.marca {
+  font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.34em;
+  text-transform: uppercase; color: var(--tinta-fraca); margin: 0 0 2.2rem;
+}
+.marca a { color: inherit; text-decoration: none; }
+
+h1 {
+  font-family: var(--display); font-weight: 400;
+  font-size: clamp(2.3rem, 6.4vw, 3.7rem); line-height: 1.12;
+  letter-spacing: 0.01em; margin: 0 0 1.6rem; text-wrap: balance;
+}
+h2 {
+  font-family: var(--display); font-weight: 400; font-size: 1.32rem;
+  margin: 3rem 0 0.5rem; letter-spacing: 0.02em;
+}
+p { margin: 0 0 1rem; }
+.fraco { color: var(--tinta-fraca); }
+ul { padding-left: 1.1rem; margin: 0 0 1rem; }
+li { margin-bottom: 0.35rem; }
+
+a { color: var(--tinta); text-decoration-color: var(--linha); text-underline-offset: 4px; }
+a:hover, a:focus-visible { text-decoration-color: var(--planeta); }
+a:focus-visible { outline: 1px solid var(--planeta); outline-offset: 3px; }
+
+/* o planeta: único acento, uma vez por tela */
+.planeta {
+  width: 46px; height: 46px; margin-bottom: 2.4rem; position: relative;
+  border-radius: 50%; background: var(--planeta);
+}
+.planeta::after {
+  content: ""; position: absolute; left: -16px; right: -16px; top: 50%;
+  height: 13px; margin-top: -6.5px; border: 1px solid var(--tinta-fraca);
+  border-radius: 50%; transform: rotate(-18deg);
+}
+
+.canais { list-style: none; padding: 0; margin: 2.4rem 0 0; }
+.canais li { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: 0.7rem 0; border-top: 1px solid var(--linha); margin: 0; }
+.canais li:last-child { border-bottom: 1px solid var(--linha); }
+.canais span { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tinta-fraca); padding-top: 0.28rem; }
+
+footer { margin-top: 4rem; font-size: 0.88rem; color: var(--tinta-fraca); }
+footer a { color: var(--tinta-fraca); }
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  .canais li { grid-template-columns: 1fr; gap: 0.1rem; }
+}
